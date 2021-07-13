@@ -71,3 +71,19 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Commands to migrations
+
+npm run migrations:generate --n "FLAG"
+npm run migrations:run
+npm run migrations:show
+
+## If you will use docker, use this commands to install images
+docker-compose up -d
+
+
+## Other specials commands
+docker-compose ps
+docker inspect //GET IP ADDRESS to use PGADMIN IF you will use POSTGRESS
+docker-compose down
+
