@@ -11,7 +11,7 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { Request } from 'express';
-
+import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -24,6 +24,7 @@ import { Public } from '../../auth/decorators/public.decorator';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('users')
+@ApiTags('Users')
 export class UsersController {
   constructor(private usersService: UsersService) { }
 

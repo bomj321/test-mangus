@@ -43,7 +43,6 @@ export class UsersService {
     newUser.password = hashPassword;
     newUser.adminId = id;
     newUser.role = 'user';
-
     return this.userRepo.save(newUser);
   }
 

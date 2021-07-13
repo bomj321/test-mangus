@@ -16,19 +16,13 @@ export class CategoriesService {
   ) { }
 
   findAll(userId) {
-    return this.categoryRepo.find();
-
-    /*
-    {
-      relations: ['user'],
-      where: {
+    return this.categoryRepo.find({
+      relations: ['user'], where: {
         user: {
           id: userId,
         }
       }
-    }
-
-    */
+    });
   }
 
   async findOne(id: number) {
@@ -48,7 +42,6 @@ export class CategoriesService {
         throw new NotFoundException(`User #${id} not found`);
       }
       newCategory.user = user;
-
       return this.categoryRepo.save(newCategory);
     } else {
       throw new NotFoundException(`User #${id} not found`);
@@ -57,23 +50,40 @@ export class CategoriesService {
   }
 
   async update(adminId: number, id: number, changes: UpdateCategoryDto) {
-    const category = await this.categoryRepo.findOne({ where: { id: id } });
-    this.categoryRepo.merge(category, changes);
-    return this.categoryRepo.save(category);
+    const category = await this.categoryRepo.findOne({
+      relations: ['user'], where: {
+        user: {
+          id: adminId,
+        },
+        id: id
+      }
+    });
+
+    if (category) {
+      this.categoryRepo.merge(category, changes);
+      return this.categoryRepo.save(category);
+    } else {
+      throw new NotFoundException(`Category #${id} not found`);
+    }
+
   }
 
   async remove(adminId: number, id: number) {
 
-    if (adminId) {
-      const user = await this.userRepo.findOne(adminId);
-
-      if (!user) {
-        throw new NotFoundException(`User #${adminId} not found`);
+    const category = await this.categoryRepo.findOne({
+      relations: ['user'], where: {
+        user: {
+          id: adminId,
+        },
+        id: id
       }
+    });
 
+    if (category) {
       return this.categoryRepo.delete(id);
+
     } else {
-      throw new NotFoundException(`User #${id} not found`);
+      throw new NotFoundException(`Category #${id} not found`);
     }
   }
 

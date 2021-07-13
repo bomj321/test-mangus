@@ -11,7 +11,7 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { Request } from 'express';
-
+import { ApiTags } from '@nestjs/swagger';
 import { CoursesService } from '../services/courses.service';
 import { CreateCourseDto, UpdateCourseDto } from '../dtos/course.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -23,6 +23,7 @@ import { Role } from '../../auth/models/roles.model';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('courses')
+@ApiTags('Courses')
 export class CoursesController {
   constructor(private coursesService: CoursesService) { }
 
