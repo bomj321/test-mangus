@@ -72,11 +72,11 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
-## Commands to migrations
+## Commands to run migrations
 
-npm run migrations:generate --n "FLAG"
-npm run migrations:run
-npm run migrations:show
+- npm run migrations:generate --n "FLAG"
+- npm run migrations:run
+- npm run migrations:show
 
 ## If you will use docker, use this command to install images
 - docker-compose up -d
